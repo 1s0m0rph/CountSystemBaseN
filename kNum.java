@@ -1,9 +1,9 @@
 
 /**
+ * kNum object, used by BaseN for its digits. (BaseN numbers are collections of kNums)
  * 
- * 
- * @author Daniel Taylor (DTIII)
- * @version .._-
+ * @author Daniel Taylor (Ambulator)
+ * @version 13.11.17
  */
 public class kNum
 {

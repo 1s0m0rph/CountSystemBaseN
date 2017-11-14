@@ -33,4 +33,4 @@ The subscript of each digit is, then, a string of INT_MAX-1 9's and one 8. i.e:
 
 }
 
-This number would take about 37 EB or 37 million TB to store. It's approximately equal to 10^(10^28), which is a 1 followed by 10 OCTILLION zeroes.
+This number would take about 37 EB or 37 million TB to store. Its first digit is approximately equal to 10^(10^28), which is a 1 followed by 10 OCTILLION zeroes.

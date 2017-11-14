@@ -17,9 +17,7 @@ The most efficient N-base for incrementing (experimentally determined) is n_9. I
 The most efficient N-base for multiplication or addition depends on the number that is being added or mupltiplied by (b). In general, the best option is a value of N which is an even divisor of b, that is still much smaller than b. Too large and it's basically just Decimal, too small and the advantage of using a divisor is pretty much lost.
 
 
-In theory, the largest number that can be represented with this system (which is, in practice, far larger than
-
-any number that could ACTUALLY be stored by any machine) can be described as such:
+In theory, the largest number that can be represented with this system (which is, in practice, far larger than any number that could ACTUALLY be stored by any machine) can be described as such:
 
 {
 

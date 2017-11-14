@@ -1,9 +1,9 @@
 
 /**
- * .
+ * The Base N main class. Unlike the CountSystem, BaseN is modeled as a data type (more like BigInteger)
  * 
- * @author Daniel Taylor (DTIII)
- * @version .._-
+ * @author Daniel Taylor (Ambulator)
+ * @version 13.11.17
  */
 import java.util.ArrayList;
 public class BaseN
@@ -13,6 +13,13 @@ public class BaseN
     boolean isNegative;
     ArrayList<kNum> v;
     
+    /*/
+    constructor to initialize the number to a certain value
+    
+    @param base the number base (_10 String)
+    @param r the subscript arraylist
+    @param negative true if the number is < 0
+    /*/
     public BaseN(String base, ArrayList<kNum> r, boolean negative)
     {
         BASE = base;
@@ -21,6 +28,11 @@ public class BaseN
         isNegative = negative;
     }
     
+    /*/
+    standard constructor. Initializes base to base and everything else to zero
+    
+    @param base the number base to initialize to
+    /*/
     public BaseN(String base)
     {
         BASE = base;
@@ -30,6 +42,10 @@ public class BaseN
         isNegative = false;
     }
     
+    /*/
+    helper methods, should be fairly self-explanatory
+    most are used to interact with other BaseN numbers
+    /*/
     int getLength(){return v.size();}
     String subscriptAt(int index){return v.get(index).getSubscript();}
     boolean getIsNegative(){return isNegative;}
@@ -42,6 +58,11 @@ public class BaseN
         v.get(index).setSubscript(set);
     }
     
+    /*/
+    print a representation of the number. Note that this is not the ONLY possible representation, just one possibility
+    for example, the number 12345, in base N_120 would be printed as:
+    k_(102)k_(105)
+    /*/
     void print()
     {
         if(isNegative)System.out.print("-");
@@ -57,6 +78,12 @@ public class BaseN
         increment(v.size()-1);
     }
     
+    /*/
+    adds one to the current value recursively
+    note that it uses the same addition method as CountSystem, so you can call increment on the wrong digit
+    
+    @param digitPos the current digit to modify
+    /*/
     void increment(int digitPos)
     {
         if(isNegative)
@@ -96,6 +123,12 @@ public class BaseN
         decrement(v.size()-1);
     }
     
+    /*/
+    takes one from the current value recursively
+    note that it uses the same addition method as CountSystem, so you can call decrement on the wrong digit
+    
+    @param digitPos the current digit to modify
+    /*/
     void decrement(int digitPos)
     {
         if(v.size() == 1 && subscriptAt(0).equals("0"))
@@ -136,6 +169,12 @@ public class BaseN
         decrement(digitPos-1);
     }
     
+    /*/
+    converts the current number to a _10 string
+    note that if the number, when converted to _10, results in a string with length > INT_MAX, bad things will happen
+    
+    @return the converted number (_10 string)
+    /*/
     String convertTo_10()
     {
         String exp = Integer.toString(v.size()-1);
@@ -148,6 +187,12 @@ public class BaseN
         return r;
     }
     
+    /*/
+    take the base BASE log of a _10 number. Used in conversion
+    
+    @param num the number to take log_BASE() of
+    @return the _10 string representation of the log
+    /*/
     String log(String num)
     {
         String r = "0";
@@ -158,34 +203,18 @@ public class BaseN
         return d.decrement(r);
     }
     
-    //     /*/
-    //     for now only works on base > 10
-    //     /*/
-    //     void convertArbitrary(String num)
-    //     {
-    //         v.clear();
-    //         v.add(new kNum("0"));
-    //         BaseN exp = new BaseN(BASE);
-    //         exp.convert(Integer.toString(num.length()-1));
-    //         for(int pos = 0; pos < num.length(); pos++)
-    //         {
-    //             BaseN addNum = new BaseN(BASE);
-    //             addNum.setSubscript(0,Character.toString(num.charAt(pos)));
-    //             BaseN power = new BaseN(BASE);
-    //             power.setSubscript(0,"10");
-    //             power.pow(exp);
-    //             addNum.multiply(power);
-    //         }
-    //     }
+    /*/
+    convert a number from base 10 to base N
     
-    /*
-     * This is about as efficient as I think it can be. I'm probably wrong though
-     * 
-     * conversion in base n_9849812 of 6816514562465206789542098129754802198544129051976485016574012:
-     * k_(76937)k_(6261200)k_(7350587)k_(8192732)k_(8196700)k_(2609509)k_(1945458)k_(6427280)k_(2999964)
-     * 
-     * which takes a few minutes to calculate
-     */
+     This is about as efficient as I think it can be. I'm probably wrong though
+      
+      conversion in base n_9849812 of 6816514562465206789542098129754802198544129051976485016574012:
+      k_(76937)k_(6261200)k_(7350587)k_(8192732)k_(8196700)k_(2609509)k_(1945458)k_(6427280)k_(2999964)
+      
+      which takes a few minutes to calculate
+      
+     @param num the number to convert into base N
+    /*/
     void convert(String num)
     {
         v.clear();
@@ -211,6 +240,13 @@ public class BaseN
         }
     }
     
+    /*/
+    check if the current number is the same as a given BaseN number b
+    note that if the base is different (even if the numbers are technically equal) it will always return false
+    
+    @param b the number to check if current = 
+    @return true of they're the same false if not
+    /*/
     boolean equals(BaseN b)
     {
         if(BASE != b.getBase())return false;
@@ -223,6 +259,12 @@ public class BaseN
         return true;
     }
     
+    /*/
+    check if current < b
+    
+    @param b the number to check if current <
+    @return true of current < b, false if current >= b
+    /*/
     boolean lessThan(BaseN b)
     {
         if(BASE != b.getBase())return false;
@@ -241,6 +283,11 @@ public class BaseN
         return false;
     }
     
+    /*/
+    take current + b (and set current to that value)
+    
+    @param b
+    /*/
     void add(BaseN b)
     {
         if(BASE != b.getBase())return;
@@ -295,6 +342,11 @@ public class BaseN
         }
     }
     
+    /*/
+    take current - b (and set current to that value)
+    
+    @param b
+    /*/
     void subtract(BaseN b)
     {
         if(BASE != b.getBase())return;
@@ -378,6 +430,12 @@ public class BaseN
         }
     }
     
+    /*/
+    get a number with n zeroes (n kNum objects with subscript "0")
+    
+    @param n the number of zeroes
+    @return BaseN the "number" with n zero-value kNums
+    /*/
     BaseN nZeroes(int n)
     {
         ArrayList<kNum> rAL = new ArrayList<kNum>(n);
@@ -388,6 +446,12 @@ public class BaseN
         return new BaseN(BASE,rAL,false);
     }
     
+    /*/
+    get a BaseN number which is equal to the digit of the current number at index index
+    
+    @param index the index of the digit to get
+    @return BaseN the number containing just the digit of current at index
+    /*/
     BaseN digit(int index)
     {
         ArrayList<kNum> rAL = new ArrayList<kNum>(1);
@@ -395,6 +459,13 @@ public class BaseN
         return new BaseN(BASE,rAL,false);
     }
     
+    /*/
+    *NOT AN ADDING ALGORITHM*
+    Sequentially adds the digits of b to the current number
+    
+    @paran b
+    @return BaseN (the digits of current)(the digits of b)
+    /*/
     BaseN sequentialAdd(BaseN b)
     {
         ArrayList<kNum> rAL = new ArrayList<kNum>(v);
@@ -402,6 +473,13 @@ public class BaseN
         return new BaseN(BASE,rAL,isNegative);
     }
     
+    /*/
+    *DON'T USE THIS METHOD, EXCEPT FOR TESTING*
+    really bad way of doing multiplication (don't use this method)
+    I'm leaving it in as a way of testing that multiply(BaseN) still works
+    
+    @param bN the number to multiply by
+    /*/
     void multiplyByConversion(BaseN bN)
     {
         String a = convertTo_10();
@@ -409,6 +487,11 @@ public class BaseN
         convert(d.multiply(a,b));
     }
     
+    /*/
+    take current * b (and set current to that value)
+    
+    @param b
+    /*/
     void multiply(BaseN b)
     {
         if(BASE != b.getBase())return;

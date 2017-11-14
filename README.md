@@ -33,4 +33,4 @@ The subscript of each digit is, then, a string of INT_MAX-1 9's and one 8. i.e:
 
 }
 
-This number would take about 37 million TB to store.
+This number would take about 37 EB or 37 million TB to store.

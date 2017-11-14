@@ -24,16 +24,12 @@ any number that could ACTUALLY be stored by any machine) can be described as suc
 {
 
 The base of this number is a string of INT_MAX 9's. i.e. "999...999"
-
-                                                          INT_MAX times
                                                           
 it then follows that each digit of this number has its maximum value in the subscript, and that there are INT_MAX digits.
 
 The subscript of each digit is, then, a string of INT_MAX-1 9's and one 8. i.e:
 
 "999...998"
-
-INT_MAX-1 times
 
 }
 
